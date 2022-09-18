@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "moduleResolution": "Node",
+        "module": "CommonJS",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "alwaysStrict": true,
+        "strict": true,
+        "rootDir": "src",
+        "outDir": "build",
+        "skipLibCheck": true
+    }
+}

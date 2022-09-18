@@ -1,0 +1,11 @@
+{
+  "name": "example",
+  "packageManager": "yarn@3.2.3",
+  "private": true,
+  "workspaces": [
+    "discord-checkout-bot",
+    "discord-webhook",
+    "nextjs-gating",
+    "ticket-chat"
+  ]
+}
