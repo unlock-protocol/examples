@@ -12,47 +12,8 @@ import {
   useBalance
 } from 'wagmi'
 
-/**
- * Component to update the amount based on user input
- * Warning: for simplicity: not used here.
- * @param {*} param0 
- * @returns 
- */
-export const Amount = ({ currency, keyPrice, amount, setAmount }) => {
-
-  const { data: decimals } = useContractRead({
-    addressOrName: currency,
-    contractInterface: erc20ABI,
-    functionName: 'decimals',
-    enabled: currency !== ethers.constants.AddressZero
-  })
-
-
-  const _updateAmount = (value) => {
-    if (value) {
-      const newAmount = ethers.utils.parseUnits(value, decimals || 18)
-      if (newAmount.gte(keyPrice)) {
-        setAmount(newAmount)
-      }
-    }
-  }
-
-  let formattedAmount = parseInt(ethers.utils.formatUnits(amount, decimals || 18))
-  return <div className="mb-6">
-    <label className="text-base block text-left">Amount:</label>
-    <input
-      aria-label="Amount"
-      className='text-base px-4 py-3 w-full rounded text-black text-base'
-      onChange={(e) => _updateAmount(e.target.value)}
-      type="number"
-      value={formattedAmount}
-    />
-  </div>
-}
-
 
 export function PurchaseKeyForm({ lock, setLock, currency, keyPrice, purchaser }) {
-  const [amount, setAmount] = React.useState(keyPrice)
   const [recipient, setRecipient] = React.useState(purchaser)
   const [referrer, setReferrer] = React.useState(purchaser)
   const [manager, setManager] = React.useState(purchaser)
@@ -69,7 +30,7 @@ export function PurchaseKeyForm({ lock, setLock, currency, keyPrice, purchaser }
     contractInterface: PublicLockV11.abi,
     functionName: 'purchase',
     args: [
-      [amount],
+      [keyPrice],
       [recipient],
       [referrer],
       [manager],
@@ -78,7 +39,7 @@ export function PurchaseKeyForm({ lock, setLock, currency, keyPrice, purchaser }
     overrides: {
       // We must set a value if the contract is using the base currency...
       // Otherwise, make sure the sender has approved the right amount of ERC20
-      value: currency !== ethers.constants.AddressZero ? ethers.constants.Zero : amount
+      value: currency !== ethers.constants.AddressZero ? ethers.constants.Zero : keyPrice
     }
   })
 
@@ -106,9 +67,9 @@ export function PurchaseKeyForm({ lock, setLock, currency, keyPrice, purchaser }
 
   let hasSufficientFunds = true
   if (currency !== ethers.constants.AddressZero) {
-    hasSufficientFunds = userERC20Balance?.gte && userERC20Balance?.gte(amount)
+    hasSufficientFunds = userERC20Balance?.gte && userERC20Balance?.gte(keyPrice)
   } else {
-    hasSufficientFunds = userBalance?.gte && userBalance?.gte(amount)
+    hasSufficientFunds = userBalance?.gte && userBalance?.gte(keyPrice)
   }
 
 
@@ -131,8 +92,6 @@ export function PurchaseKeyForm({ lock, setLock, currency, keyPrice, purchaser }
           value={lock}
         />
       </div>
-
-      {/* <Amount currency={currency} keyPrice={keyPrice} amount={amount || keyPrice} setAmount={setAmount} /> */}
 
       <div className="mb-6">
         <label className="text-base block text-left">Recipient (address who receives the membership NFT):</label>
