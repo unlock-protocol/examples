@@ -8,7 +8,7 @@ The examples are loosely sorted by languages and framework used. Each of them co
 
 ## Javascript
 
-## Nodejs
+### Nodejs
 
 - [Discord Checkout Bot](./javascript/node.js/discord-checkout-bot/)
 
@@ -18,7 +18,7 @@ A token gating discord bot which allows creators to sell NFT and give access to 
 
 A discord webhook to receive information about newly created keys and locks on different networks supported by unlock on discord channels. This example makes use of websub APIs provided by unlock to subscribe and receive events from locksmith.
 
-## React
+### React
 
 - [Ticket Chat](./javascript/react/ticket-chat)
 
