@@ -5,4 +5,4 @@ A basic react application ([create-react-app](https://create-react-app.dev/)) th
 - deploying a lock (check [DeployLock.js](./src/DeployLock.js))
 - purchase/mint NFT membership (check [PurchaseKey.js](./src/PurchaseKey.js))
 
-You can run locally with `yarn && yarn start`.
+You can run locally with `yarn && yarn start` and you can test it on [Vercel](https://examples-wagmi.vercel.app/).
