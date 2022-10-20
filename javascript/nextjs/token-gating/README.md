@@ -8,15 +8,17 @@ This is an example using Unlock to tokengate application using NFTs both server 
 
 To get started, you need to fill in the configuration files inside `config/` folder.
 
-1. `unlock.ts` holds configuration for paywall checkout and networks.
+1. `unlock.ts` holds configuration for our checkout and networks.
 
-Check out the schema and tutorial on the unlock docs [paywall page](https://docs.unlock-protocol.com/unlock/developers/paywall/configuring-checkout#the-paywallconfig-object)
+Check out the schema and tutorial in our docs under ["Tools" > "Checkout" > "Configuration"](https://docs.unlock-protocol.com/tools/checkout/configuration)
 
-You will need to provide network provider and the address of the unlock contract for each network you support on your locks. See the selection of networks in the [smart contracts docs page](https://docs.unlock-protocol.com/unlock/developers/smart-contracts#production-networks)
+You will need to provide network provider and the address of the Unlock contract 
+for each network you support on your locks. See available networks and associated
+contract addresses in our docs under ["Core Protocol" > "Unlock" > "Networks"](https://docs.unlock-protocol.com/unlock/developers/smart-contracts#production-networks)
 
 2. `session.ts` holds configuration for how session will be created and managed.
 
-3. Set the following environment variables. You can put them all inside `.env.local` file in development. Nextjs will load them automatically.
+3. Set the following environment variables. You can put them all inside `.env.local` file in development. Next.js will load them automatically.
 
    - `NEXT_PUBLIC_BASE_URL` - the base url of your site. For example, if your site is deployed to https://example.com/my-site, then the base url is `https://example.com`. If you are in development mode, it is set to http://localhost:3000 by default.
 
