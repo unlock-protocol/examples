@@ -25,6 +25,12 @@ A discord webhook to receive information about newly created keys and locks on d
 A realtime chat application built on top of [liveblocks](https://liveblocks.io) to allow unlock NFT ticket holders to chat with each other at events.
 This example makes use of unlock QR code tickets and SIWE integration to build a smooth token gating event chat flow.
 
+- [Wagmi.sh](./javascript/react//wagmi.sh/)
+
+# Wagmi
+
+A basic react application ([create-react-app](https://create-react-app.dev/)) that shows how to use [Wagmi.sh](https://wagmi.sh/) with Unlock.
+
 ### Nextjs
 
 - [Nextjs Gating](./javascript/nextjs/token-gating/)
