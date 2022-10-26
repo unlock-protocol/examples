@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-gating",
+  "name": "unlock-with-next",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,22 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@unlock-protocol/unlock-js": "^0.21.2",
+    "@unlock-protocol/networks": "^0.0.8",
+    "@unlock-protocol/unlock-js": "^0.30.5",
     "ethers": "^5.6.1",
     "iron-session": "^6.1.0",
-    "next": "^12.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "next": "^13.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "swr": "^1.2.2"
   },
   "devDependencies": {
-    "@types/node": "17.0.21",
-    "@types/react": "17.0.40",
+    "@types/node": "18.11.5",
+    "@types/react": "18.0.23",
     "autoprefixer": "^10.4.4",
-    "eslint": "8.10.0",
-    "eslint-config-next": "12.1.0",
+    "eslint": "8.26.0",
+    "eslint-config-next": "13.0.0",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.23",
-    "typescript": "4.6.2"
+    "typescript": "4.8.4"
   }
 }
