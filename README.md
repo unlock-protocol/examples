@@ -6,6 +6,14 @@ Please, do check the [Unlock Protocols docs](https://docs.unlock-protocol.com/) 
 
 The examples are loosely sorted by languages and framework used. Each of them contains a README that provides more details about what the specific example provides.
 
+## Solidity
+
+### Hooks
+
+- [Discount Hook](./solidity/hooks/discount-hook/)
+
+A basic hook example to set special discounted price for specific addresses when they purchase a membership
+
 ## Javascript
 
 ### Nodejs
