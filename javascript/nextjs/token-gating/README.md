@@ -12,9 +12,10 @@ To get started, you need to fill in the configuration files inside `config/` fol
 
 Check out the schema and tutorial in our docs under ["Tools" > "Checkout" > "Configuration"](https://docs.unlock-protocol.com/tools/checkout/configuration)
 
-You will need to provide network provider and the address of the Unlock contract 
-for each network you support on your locks. See available networks and associated
-contract addresses in our docs under ["Core Protocol" > "Unlock" > "Networks"](https://docs.unlock-protocol.com/unlock/developers/smart-contracts#production-networks)
+We use `@unlock-protocol/networks` package which provides network config and RPCs operated by unlock labs. See available networks and associated
+contract addresses in our docs under ["Core Protocol" > "Unlock" > "Networks"](https://docs.unlock-protocol.com/unlock/developers/smart-contracts#production-networks).
+
+It is recommended to use your own network config. You can pass that in the unlockjs to avoid depending on unlock labs. 
 
 2. `session.ts` holds configuration for how session will be created and managed.
 
@@ -29,20 +30,20 @@ contract addresses in our docs under ["Core Protocol" > "Unlock" > "Networks"](h
 You can lock content on the client side by using the `useUser` hook.
 
 ```tsx
-import { NextPage } from "next";
-import { useUser } from "~/hooks/useUser";
+import { NextPage } from 'next'
+import { useUser } from '~/hooks/useUser'
 
 const Page: NextPage = () => {
-  const { user } = useUser();
+  const { user } = useUser()
 
   return (
     <div>
       {user?.isLoggedIn ? `Hello, ${user.walletAddress}` : `You need to login`}
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
 ```
 
 ### Server Side Locking
@@ -101,11 +102,11 @@ export const getServerSideProps =
 To lock an API endpoint server side, you can use the `withIronSessionApiRoute` middleware in the API file to return different responses based on whether the user is logged in or not.
 
 ```typescript
-import { withIronSessionApiRoute } from "iron-session/next";
-import { NextApiRequest, NextApiResponse } from "next";
-import { sessionOptions } from "~/config/session";
+import { withIronSessionApiRoute } from 'iron-session/next'
+import { NextApiRequest, NextApiResponse } from 'next'
+import { sessionOptions } from '~/config/session'
 
-export default withIronSessionApiRoute(userRoute, sessionOptions);
+export default withIronSessionApiRoute(userRoute, sessionOptions)
 
 async function userRoute(
   req: NextApiRequest,
@@ -114,11 +115,11 @@ async function userRoute(
   if (req.session.user?.isLoggedIn) {
     res.json({
       locked: false,
-    });
+    })
   } else {
     res.json({
       locked: true,
-    });
+    })
   }
 }
 ```

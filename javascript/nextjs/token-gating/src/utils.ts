@@ -1,4 +1,5 @@
-import { networks, paywallConfig } from "~/config/unlock";
+import { paywallConfig } from "~/config/unlock";
+import { networks } from "@unlock-protocol/networks";
 import { Web3Service } from "@unlock-protocol/unlock-js";
 import { Membership } from "./types";
 interface GetHasValidKeyOptions {
@@ -13,12 +14,13 @@ export async function getValidKey({
   userAddress,
 }: GetHasValidKeyOptions) {
   const unlockWeb3Service = new Web3Service(networks);
-  // @ts-ignore - unlockjs is not typed properly
-  const keyId = await unlockWeb3Service.getTokenIdForOwner(
+  const key = await unlockWeb3Service.getKeyByLockForOwner(
     lockAddress,
     userAddress,
     network
   );
+
+  const keyId = key.tokenId;
 
   if (keyId <= 0) {
     return;
