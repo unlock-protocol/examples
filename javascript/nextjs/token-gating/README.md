@@ -12,9 +12,10 @@ To get started, you need to fill in the configuration files inside `config/` fol
 
 Check out the schema and tutorial in our docs under ["Tools" > "Checkout" > "Configuration"](https://docs.unlock-protocol.com/tools/checkout/configuration)
 
-You will need to provide network provider and the address of the Unlock contract
-for each network you support on your locks. See available networks and associated
-contract addresses in our docs under ["Core Protocol" > "Unlock" > "Networks"](https://docs.unlock-protocol.com/unlock/developers/smart-contracts#production-networks)
+We use `@unlock-protocol/networks` package which provides network config and RPCs operated by unlock labs. See available networks and associated
+contract addresses in our docs under ["Core Protocol" > "Unlock" > "Networks"](https://docs.unlock-protocol.com/unlock/developers/smart-contracts#production-networks).
+
+It is recommended to use your own network config. You can pass that in the unlockjs to avoid depending on unlock labs. 
 
 2. `session.ts` holds configuration for how session will be created and managed.
 
