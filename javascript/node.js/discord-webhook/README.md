@@ -2,7 +2,7 @@
 
 This is an example application which receives events from locksmith websub endpoints and posts them to a Discord channel using webhook.
 
-## Configure
+## Develop
 
 Rename .template.env to .env file and fill all the keys with correct values.
 
