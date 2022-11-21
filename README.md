@@ -35,7 +35,7 @@ This example makes use of unlock QR code tickets and SIWE integration to build a
 
 - [Wagmi.sh](./javascript/react//wagmi.sh/)
 
-# Wagmi
+### Wagmi
 
 A basic react application ([create-react-app](https://create-react-app.dev/)) that shows how to use [Wagmi.sh](https://wagmi.sh/) with Unlock.
 
@@ -44,6 +44,14 @@ A basic react application ([create-react-app](https://create-react-app.dev/)) th
 - [Nextjs Gating](./javascript/nextjs/token-gating/)
 
 A nextjs gating template app which uses server side gating and access control based on tier of memberships. This example makes of use unlock checkout and authentication APIs to provide server-side gating and access control.
+
+## Unlockjs
+
+### Subgraph-Service
+
+- [Subgraph service](./javascript/unlockjs/subgraph-service.md)
+
+Using the SubgraphService to query locks.
 
 # License
 
