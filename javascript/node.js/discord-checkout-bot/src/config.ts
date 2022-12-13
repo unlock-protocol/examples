@@ -2,9 +2,9 @@ export const paywallConfig = {
   messageToSign: "Allow access to Unlock Discord Community",
   pessimistic: true,
   locks: {
-    "0xCE62D71c768aeD7EA034c72a1bc4CF58830D9894": {
+    "0xb77030a7e47a5eb942a4748000125e70be598632": {
       name: "Unlock Community",
-      network: 100,
+      network: 137,
     },
   },
   metadataInputs: [{ name: "email", type: "email", required: true }],
