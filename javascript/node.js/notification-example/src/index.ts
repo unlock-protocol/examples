@@ -9,9 +9,9 @@
  *
  * Learn more at https://developers.cloudflare.com/workers/runtime-apis/scheduled-event/
  */
-import BigNumber from "bignumber.js";
-import { networks } from "@unlock-protocol/networks";
-
+import BigNumber from 'bignumber.js'
+import { networks } from '@unlock-protocol/networks'
+import { MINIMUM_BALANCES } from './minimum'
 export interface Env {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
   // MY_KV_NAMESPACE: KVNamespace;
@@ -21,71 +21,71 @@ export interface Env {
   //
   // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
   // MY_BUCKET: R2Bucket;
-  DISCORD_WEBHOOK_URL: string;
-  DISCORD_USER_ID: string;
-  LOCKSMITH_URL: string;
-  MINIMUM_BALANCE: string;
+  DISCORD_WEBHOOK_URL: string
+  DISCORD_USER_ID: string
+  LOCKSMITH_URL: string
+  NOTIFICATIONS: KVNamespace
 }
 
 interface Options {
-  network: Record<string, string>;
-  address: string;
-  balance: string;
-  minimum: string;
-  user: string;
+  network: Record<string, string>
+  address: string
+  balance: string
+  minimum: string
+  user: string
 }
 
 async function sendNotification(endpoint: string, options: Options) {
-  const { network, address, balance, minimum, user } = options;
+  const { network, address, balance, minimum, user } = options
   const body = {
-    username: "Unlock Alert",
+    username: 'Unlock Alert',
     allowed_mentions: {
-      parse: ["users"],
+      parse: ['users'],
     },
     content: `<@${user}>`,
     embeds: [
       {
-        title: "Low balance alert",
-        type: "rich",
+        title: `Low balance on ${network.name} network`,
+        type: 'rich',
         description: `The balance on ${network.name} network is ${balance} which is lower the minimum threshold set at ${minimum}. Please fund it ASAP.`,
         fields: [
           {
-            name: "Network",
+            name: 'Network',
             value: network.name,
             inline: true,
           },
           {
-            name: "Network ID",
+            name: 'Network ID',
             value: network.id,
             inline: true,
           },
           {
-            name: "Address",
+            name: 'Address',
             value: address,
             inline: true,
           },
           {
-            name: "Balance",
+            name: 'Balance',
             value: balance,
             inline: true,
           },
         ],
       },
     ],
-  };
+  }
 
   const response = await fetch(endpoint, {
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
     body: JSON.stringify(body),
-    method: "POST",
-  });
+    method: 'POST',
+  })
 
   if (!response.ok) {
-    console.error(response, options);
+    console.error(response, options, response.statusText, response.status)
   } else {
-    console.info(response, options, "successfully sent notification");
+    console.info(response, options, 'successfully sent notification')
   }
 }
 
@@ -95,40 +95,53 @@ export default {
     env: Env,
     ctx: ExecutionContext
   ): Promise<void> {
-    const minimumBalance = new BigNumber(env.MINIMUM_BALANCE || "0.5");
-    const balanceEndpoint = new URL("/purchase", env.LOCKSMITH_URL);
+    const balanceEndpoint = new URL('/purchase', env.LOCKSMITH_URL)
+    const lastSent = await env.NOTIFICATIONS.get('last_sent')
+    // If sent a notification in the last 24 hours, do not send another one
+    if (lastSent) {
+      const lastSentDate = parseInt(lastSent)
+      const diff = Date.now() - lastSentDate
+      if (diff < 1000 * 60 * 60 * 24) {
+        return
+      }
+    }
+
     const response = await fetch(balanceEndpoint.toString(), {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "content-type": "application/json",
+        'content-type': 'application/json',
       },
-    });
+    })
+
     const balances: Record<
       string,
       Record<string, string>
-    > = await response.json();
+    > = await response.json()
 
     for (const [networkId, config] of Object.entries(balances)) {
       if (!Object.keys(config).length) {
-        continue;
+        continue
       }
 
-      const { balance, address } = config;
-      const network = networks[networkId];
-      const networkBalance = new BigNumber(balance);
+      const { balance, address } = config
+      const network = networks[networkId]
+      const minimumBalance = new BigNumber(MINIMUM_BALANCES[networkId])
+      const networkBalance = new BigNumber(balance)
       if (networkBalance.gte(minimumBalance)) {
-        continue;
+        continue
       }
+
       await sendNotification(env.DISCORD_WEBHOOK_URL, {
         network,
         address,
         balance: networkBalance.toString(),
         minimum: minimumBalance.toString(),
         user: env.DISCORD_USER_ID,
-      });
+      })
+      await env.NOTIFICATIONS.put('last_sent', Date.now()?.toString())
     }
   },
   async fetch() {
-    return new Response("Hello!");
+    return new Response('Hello!')
   },
-};
+}
