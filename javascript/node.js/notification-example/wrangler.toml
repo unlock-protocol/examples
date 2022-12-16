@@ -2,5 +2,10 @@ name = "notification-example"
 main = "src/index.ts"
 compatibility_date = "2022-10-10"
 
+kv_namespaces = [
+    { binding = "NOTIFICATIONS", id = "0c65203ee18449778e0f2e9c852ed76b", preview_id = "728ba76dfd934708ba31fd7c90ebdec9" }
+]
+
 [triggers]
 crons = [ "*/30 * * * *" ]
+

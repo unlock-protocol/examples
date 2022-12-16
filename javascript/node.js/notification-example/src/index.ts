@@ -24,6 +24,7 @@ export interface Env {
   DISCORD_WEBHOOK_URL: string
   DISCORD_USER_ID: string
   LOCKSMITH_URL: string
+  NOTIFICATIONS: KVNamespace
 }
 
 interface Options {
@@ -95,12 +96,23 @@ export default {
     ctx: ExecutionContext
   ): Promise<void> {
     const balanceEndpoint = new URL('/purchase', env.LOCKSMITH_URL)
+    const lastSent = await env.NOTIFICATIONS.get('last_sent')
+    // If sent a notification in the last 24 hours, do not send another one
+    if (lastSent) {
+      const lastSentDate = parseInt(lastSent)
+      const diff = Date.now() - lastSentDate
+      if (diff < 1000 * 60 * 60 * 24) {
+        return
+      }
+    }
+
     const response = await fetch(balanceEndpoint.toString(), {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
       },
     })
+
     const balances: Record<
       string,
       Record<string, string>
@@ -113,11 +125,12 @@ export default {
 
       const { balance, address } = config
       const network = networks[networkId]
-      const minimumBalance = new BigNumber(MINIMUM_BALANCES[networkId] || '0.5')
+      const minimumBalance = new BigNumber(MINIMUM_BALANCES[networkId])
       const networkBalance = new BigNumber(balance)
       if (networkBalance.gte(minimumBalance)) {
         continue
       }
+
       await sendNotification(env.DISCORD_WEBHOOK_URL, {
         network,
         address,
@@ -125,6 +138,7 @@ export default {
         minimum: minimumBalance.toString(),
         user: env.DISCORD_USER_ID,
       })
+      await env.NOTIFICATIONS.put('last_sent', Date.now()?.toString())
     }
   },
   async fetch() {
