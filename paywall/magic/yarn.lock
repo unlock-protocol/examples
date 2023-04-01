@@ -590,6 +590,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@unlock-protocol/networks@file:../../../unlock/packages/networks::locator=vercel-magic-doc%40workspace%3A.":
+  version: 0.0.10
+  resolution: "@unlock-protocol/networks@file:../../../unlock/packages/networks#../../../unlock/packages/networks::hash=3e41b5&locator=vercel-magic-doc%40workspace%3A."
+  checksum: cfb811312d2e26a79e4c0d66e0c933c4df39f801615e6c2a76d7f55ef1de0db15cf014397241385ac31eaf2967852a2b6199f21c53c952dce980a22cbd0b6654
+  languageName: node
+  linkType: hard
+
+"@unlock-protocol/paywall@file:../../../unlock/packages/paywall::locator=vercel-magic-doc%40workspace%3A.":
+  version: 0.3.1
+  resolution: "@unlock-protocol/paywall@file:../../../unlock/packages/paywall#../../../unlock/packages/paywall::hash=d5880e&locator=vercel-magic-doc%40workspace%3A."
+  dependencies:
+    postmate: 1.5.2
+  checksum: 5389daebefe79baae2231d5ed4d8ba8b860ae7998db128121b4bc464b00488cb9ca903b9e5f4921023b955f83a8021a5ebe1a35974cdce39a1931c55f0643400
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -3539,6 +3555,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postmate@npm:1.5.2":
+  version: 1.5.2
+  resolution: "postmate@npm:1.5.2"
+  checksum: 098eb5ea9d90469fbeff0a43e2eb4047157132e61985dfe6eefcb65b612a87ec764b463238373eb76e66ba644ab64d581f40dcf3c0b23877cddc741927968e76
+  languageName: node
+  linkType: hard
+
 "prelude-ls@npm:^1.2.1":
   version: 1.2.1
   resolution: "prelude-ls@npm:1.2.1"
@@ -4398,6 +4421,8 @@ __metadata:
   dependencies:
     "@magic-sdk/admin": ^1.8.0
     "@next/font": 13.1.6
+    "@unlock-protocol/networks": ../../../unlock/packages/networks
+    "@unlock-protocol/paywall": ../../../unlock/packages/paywall
     eslint: 8.33.0
     eslint-config-next: 13.1.6
     magic-sdk: ^13.1.0

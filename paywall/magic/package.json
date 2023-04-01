@@ -11,6 +11,8 @@
   "dependencies": {
     "@magic-sdk/admin": "^1.8.0",
     "@next/font": "13.1.6",
+    "@unlock-protocol/networks": "../../../unlock/packages/networks",
+    "@unlock-protocol/paywall": "../../../unlock/packages/paywall",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "magic-sdk": "^13.1.0",
