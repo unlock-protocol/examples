@@ -27,10 +27,10 @@ export default function Dashboard() {
           "network": 5,
         }
       },
+      "skipRecipient": true,
       "title": "Coinbase Membership Demo",
     }
     const paywall = new Paywall(paywallConfig, networks, magic.rpcProvider)
-    // const paywall = new Paywall(paywallConfig, networks, window.ethereum)
     paywall.loadCheckoutModal()
 
     return false
