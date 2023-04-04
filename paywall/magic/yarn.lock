@@ -590,19 +590,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@unlock-protocol/networks@npm:0.0.11":
+"@unlock-protocol/networks@npm:^0.0.11":
   version: 0.0.11
   resolution: "@unlock-protocol/networks@npm:0.0.11"
   checksum: d3efeff87a635c163d92755f4359ea9e41637fb95aec53a03f9a10655086713728fa36f0f38b552fd4d2738083c0133d878f5d189c2f64615251553df29da1ff
   languageName: node
   linkType: hard
 
-"@unlock-protocol/paywall@npm:0.3.3":
-  version: 0.3.3
-  resolution: "@unlock-protocol/paywall@npm:0.3.3"
+"@unlock-protocol/paywall@npm:^0.3.4":
+  version: 0.3.4
+  resolution: "@unlock-protocol/paywall@npm:0.3.4"
   dependencies:
     postmate: 1.5.2
-  checksum: 047272a025bc523e1e472b15b3cdfe3658240bcba4a8dff8b7e0621aa2f35e2984bf49c63d9e107f540a34700425959776fed9f2491146a39adcbc901f2857d7
+  checksum: 3b049b5774d526ad7d21cb36607db2d9d8ef8b6a75f7d6974ef0c58fde5293e5ee7e49afac88d253322a70bf6dc0de9505c9c345071ddb90816f21db71e01d3a
   languageName: node
   linkType: hard
 
@@ -4421,8 +4421,8 @@ __metadata:
   dependencies:
     "@magic-sdk/admin": 1.8.0
     "@next/font": 13.1.6
-    "@unlock-protocol/networks": 0.0.11
-    "@unlock-protocol/paywall": 0.3.3
+    "@unlock-protocol/networks": ^0.0.11
+    "@unlock-protocol/paywall": ^0.3.4
     eslint: 8.33.0
     eslint-config-next: 13.1.6
     magic-sdk: 13.1.0
