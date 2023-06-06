@@ -41,7 +41,7 @@ contract GuildHook is Ownable {
     function checkIsSigner(
         string memory message,
         bytes calldata signature /* data */
-    ) public view returns (bool isSigner) {
+    ) private view returns (bool isSigner) {
         bytes memory encoded = abi.encodePacked(message);
         bytes32 messageHash = keccak256(encoded);
         bytes32 hash = ECDSA.toEthSignedMessageHash(messageHash);
@@ -52,19 +52,19 @@ contract GuildHook is Ownable {
     /**
      * Helper functions to turn addrerss into string so we can verify the signature (address is signed as string on the client)
      */
-    function toString(address account) public pure returns (string memory) {
+    function toString(address account) private pure returns (string memory) {
         return toString(abi.encodePacked(account));
     }
 
-    function toString(uint256 value) public pure returns (string memory) {
+    function toString(uint256 value) private pure returns (string memory) {
         return toString(abi.encodePacked(value));
     }
 
-    function toString(bytes32 value) public pure returns (string memory) {
+    function toString(bytes32 value) private pure returns (string memory) {
         return toString(abi.encodePacked(value));
     }
 
-    function toString(bytes memory data) public pure returns (string memory) {
+    function toString(bytes memory data) private pure returns (string memory) {
         bytes memory alphabet = '0123456789abcdef';
 
         bytes memory str = new bytes(2 + data.length * 2);
