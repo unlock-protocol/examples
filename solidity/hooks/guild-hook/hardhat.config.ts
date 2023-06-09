@@ -24,6 +24,8 @@ const config: HardhatUserConfig = {
   networks: networksByNames,
   etherscan: {
     apiKey: {
+      arbitrumOne: 'W5XNFPZS8D6JZ5AXVWD4XCG8B5ZH5JCD4Y',
+      gnosis: 'BSW3C3NDUUBWSQZJ5FUXBNXVYX92HZDDCV',
       polygon: 'W9TVEYKW2CDTQ94T3A2V93IX6U3IHQN5Y3',
       goerli: 'HPSH1KQDPJTNAPU3335G931SC6Y3ZYK3BF',
       mainnet: 'HPSH1KQDPJTNAPU3335G931SC6Y3ZYK3BF',
