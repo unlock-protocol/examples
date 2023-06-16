@@ -182,19 +182,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/admin@npm:^1.8.0":
-  version: 1.9.2
-  resolution: "@magic-sdk/admin@npm:1.9.2"
+"@magic-sdk/admin@npm:1.8.0":
+  version: 1.8.0
+  resolution: "@magic-sdk/admin@npm:1.8.0"
   dependencies:
     "@types/atob": ^2.1.2
     atob: ^2.1.2
     ethereum-cryptography: ^1.0.1
     node-fetch: ^2.6.0
-  checksum: f9a28bc649a40b76b7cdbb77d3f803df67d6c3f57b35ba4c7566010dda1a47db289decf28d65e32da682a3ec7cdd098d8209c1cd3c608c5b59f179ea77c42a85
+  checksum: a350f9b96962d0ad0e0a221cb5962401f367cd2c27d6ac78904bc1176045e3bb3b101d1dd67ae1761c224e7e9e18764d4169ea8a5c8e8727a53745b197667a91
   languageName: node
   linkType: hard
 
-"@magic-sdk/commons@npm:^9.6.2":
+"@magic-sdk/commons@npm:^9.1.0":
   version: 9.6.2
   resolution: "@magic-sdk/commons@npm:9.6.2"
   peerDependencies:
@@ -204,7 +204,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/provider@npm:^13.6.2":
+"@magic-sdk/provider@npm:^13.1.0":
   version: 13.6.2
   resolution: "@magic-sdk/provider@npm:13.6.2"
   dependencies:
@@ -217,7 +217,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@magic-sdk/types@npm:^11.6.2":
+"@magic-sdk/types@npm:^11.1.0, @magic-sdk/types@npm:^11.6.2":
   version: 11.6.2
   resolution: "@magic-sdk/types@npm:11.6.2"
   checksum: e07ae7f2e267475f76b5cf0c7dfbc3739681759663ca5ddb5626c3d817025cb308a54fea88187585ce6c932ad0e90666a9449722e45cffd258444b77e2aed05c
@@ -590,19 +590,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@unlock-protocol/networks@file:../../../unlock/packages/networks::locator=vercel-magic-doc%40workspace%3A.":
-  version: 0.0.10
-  resolution: "@unlock-protocol/networks@file:../../../unlock/packages/networks#../../../unlock/packages/networks::hash=af6017&locator=vercel-magic-doc%40workspace%3A."
-  checksum: 9e587312fc65884a27f0a437a660294ad08946b9a763f6868c1caa7f5ff6aa932224cd22ed241ed58e285ff6c0cfe10e3d8fbf5437768befb6371d6f46372545
+"@unlock-protocol/networks@npm:^0.0.11":
+  version: 0.0.11
+  resolution: "@unlock-protocol/networks@npm:0.0.11"
+  checksum: d3efeff87a635c163d92755f4359ea9e41637fb95aec53a03f9a10655086713728fa36f0f38b552fd4d2738083c0133d878f5d189c2f64615251553df29da1ff
   languageName: node
   linkType: hard
 
-"@unlock-protocol/paywall@file:../../../unlock/packages/paywall::locator=vercel-magic-doc%40workspace%3A.":
+"@unlock-protocol/paywall@npm:^0.3.4":
   version: 0.3.4
-  resolution: "@unlock-protocol/paywall@file:../../../unlock/packages/paywall#../../../unlock/packages/paywall::hash=9f55b2&locator=vercel-magic-doc%40workspace%3A."
+  resolution: "@unlock-protocol/paywall@npm:0.3.4"
   dependencies:
     postmate: 1.5.2
-  checksum: 2118bd46189da48a1ed8333e2cc4c857e951926fbe704f9045d26e0a449f8110e6d5344351e7889675630d3146c766dfb16b5384f574b27ab1575c3b0fd9407c
+  checksum: 3b049b5774d526ad7d21cb36607db2d9d8ef8b6a75f7d6974ef0c58fde5293e5ee7e49afac88d253322a70bf6dc0de9505c9c345071ddb90816f21db71e01d3a
   languageName: node
   linkType: hard
 
@@ -2899,15 +2899,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-sdk@npm:^13.1.0":
-  version: 13.6.2
-  resolution: "magic-sdk@npm:13.6.2"
+"magic-sdk@npm:13.1.0":
+  version: 13.1.0
+  resolution: "magic-sdk@npm:13.1.0"
   dependencies:
-    "@magic-sdk/commons": ^9.6.2
-    "@magic-sdk/provider": ^13.6.2
-    "@magic-sdk/types": ^11.6.2
+    "@magic-sdk/commons": ^9.1.0
+    "@magic-sdk/provider": ^13.1.0
+    "@magic-sdk/types": ^11.1.0
     localforage: ^1.7.4
-  checksum: 63527b00b333cc59a841d49cbbaf80eb309e6b2d368ad354656721494bbc0d2f3d372b9c0343191b2da63437a35d648e0cb9c75a481cfa290e419fcde6e8b67c
+  checksum: f1eb5639c62132d029455d4e6da52ef9b7edf644cee76956ed61cd08d36c4f956c853be92f1b24f50f073cf4269470ef310d7c9092e47586efa0216b00dc14f9
   languageName: node
   linkType: hard
 
@@ -4419,13 +4419,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vercel-magic-doc@workspace:."
   dependencies:
-    "@magic-sdk/admin": ^1.8.0
+    "@magic-sdk/admin": 1.8.0
     "@next/font": 13.1.6
-    "@unlock-protocol/networks": ../../../unlock/packages/networks
-    "@unlock-protocol/paywall": ../../../unlock/packages/paywall
+    "@unlock-protocol/networks": ^0.0.11
+    "@unlock-protocol/paywall": ^0.3.4
     eslint: 8.33.0
     eslint-config-next: 13.1.6
-    magic-sdk: ^13.1.0
+    magic-sdk: 13.1.0
     next: 13.1.6
     react: 18.2.0
     react-dom: 18.2.0

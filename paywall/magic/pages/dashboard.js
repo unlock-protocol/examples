@@ -21,14 +21,13 @@ export default function Dashboard() {
 
   const checkout = async () => {
     const paywallConfig = {
-      "icon": "https://altcoinsbox.com/wp-content/uploads/2022/12/coinbase-logo.png",
       "locks": {
-        "0x0f1ddcacda9e9a8ebc18990b457286c0f2c55ded": {
-          "network": 5,
+        "0xbf49ca4bf09d4b720fe5fcaecce0fe5d5b1becb9": {
+          "network": 137,
         }
       },
       "skipRecipient": true,
-      "title": "Coinbase Membership Demo",
+      "title": "My Membership",
     }
     const paywall = new Paywall(paywallConfig, networks, magic.rpcProvider)
     paywall.loadCheckoutModal()
