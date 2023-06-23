@@ -1,6 +1,5 @@
 {
   "name": "provider",
-  "packageManager": "yarn@3.2.3",
   "dependencies": {
     "@unlock-protocol/networks": "0.0.15",
     "@unlock-protocol/paywall": "0.6.1",
