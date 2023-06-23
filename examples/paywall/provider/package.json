@@ -1,0 +1,26 @@
+{
+  "name": "provider",
+  "packageManager": "yarn@3.2.3",
+  "dependencies": {
+    "@unlock-protocol/networks": "0.0.15",
+    "@unlock-protocol/paywall": "0.6.1",
+    "@unlock-protocol/unlock-js": "0.38.3",
+    "buffer": "6.0.3",
+    "ethers": "5.7.x",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "viem": "1.1.4",
+    "wagmi": "1.2.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "0.2.3",
+    "@vitejs/plugin-react": "4.0.1",
+    "vite": "4.3.9",
+    "vite-plugin-node-polyfills": "0.9.0"
+  }
+}
