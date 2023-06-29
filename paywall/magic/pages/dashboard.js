@@ -22,16 +22,17 @@ export default function Dashboard() {
   const checkout = async () => {
     const paywallConfig = {
       "locks": {
-        "0xbf49ca4bf09d4b720fe5fcaecce0fe5d5b1becb9": {
-          "network": 137,
+        "0x6c208a3eb3150e7896124d282095f9e5fca18780": {
+          "network": 5,
         }
       },
       "skipRecipient": true,
       "title": "My Membership",
     }
-    const paywall = new Paywall(paywallConfig, networks, magic.rpcProvider)
-    paywall.loadCheckoutModal()
-
+    const paywall = new Paywall(networks)
+    await paywall.connect(magic.rpcProvider)
+    await paywall.loadCheckoutModal(paywallConfig, 'http://localhost:3000')
+    // You can use the returned value above to get a transaction hash if needed!
     return false
   }
 
