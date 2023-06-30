@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      window.unlockProtocolConfig = {
+        locks: {
+          '0x71ac04694ec01e4353e9d3b8ec04c48200ed52b7': {
+            network: 5,
+          },
+        },
+        metadataInputs: [
+          {
+            name: 'email',
+            type: 'email',
+            required: true,
+          },
+          {
+            name: 'userId',
+            type: 'hidden',
+            required: true,
+            value: '123',
+          },
+        ],
+        pessimistic: true,
+      }
+    </script>
+    <script src="https://paywall.unlock-protocol.com/static/unlock.latest.min.js"></script>
+  </body>
+</html>
