@@ -31,7 +31,7 @@ export default function Dashboard() {
     }
     const paywall = new Paywall(networks)
     await paywall.connect(magic.rpcProvider)
-    await paywall.loadCheckoutModal(paywallConfig, 'http://localhost:3000')
+    await paywall.loadCheckoutModal(paywallConfig)
     // You can use the returned value above to get a transaction hash if needed!
     return false
   }
