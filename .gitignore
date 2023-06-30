@@ -54,3 +54,6 @@ dist-ssr
 
 # typescript
 *.tsbuildinfo
+.turbo
+.next
+.yarn/cache

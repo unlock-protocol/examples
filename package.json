@@ -1,0 +1,17 @@
+{
+  "name": "examples",
+  "packageManager": "yarn@3.6.0",
+  "workspaces": [
+    "examples/apps/**",
+    "examples/solidity/**",
+    "examples/paywall/*"
+  ],
+  "devDependencies": {
+    "turbo": "^1.10.5"
+  },
+  "scripts": {
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint"
+  }
+}
