@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import { ColorResolvable } from 'discord.js'
 import fetch from 'cross-fetch'
-
+import { networks } from '@unlock-protocol/networks'
 export function chunk<T>(array: readonly T[], size: number) {
   if (!array.length) {
     return []
@@ -83,111 +83,4 @@ export const NETWORK_COLOR: Record<string, ColorResolvable> = {
   '100': '#39a7a1',
   '137': '#8146d9',
   '56': '#f8ba33',
-}
-
-interface Network {
-  id: number
-  name: string
-  explorer: {
-    name: string
-    urls: {
-      address(address: string): string
-    }
-  }
-}
-
-export const networks: Record<string, Network> = {
-  '1': {
-    id: 1,
-    name: 'Ethereum',
-    explorer: {
-      name: 'Etherscan',
-      urls: {
-        address: (address) => `https://etherscan.io/address/${address}`,
-      },
-    },
-  },
-  '10': {
-    id: 10,
-    name: 'Optimism',
-    explorer: {
-      name: 'Etherscan',
-      urls: {
-        address: (address) =>
-          `https://optimistic.etherscan.io/address/${address}`,
-      },
-    },
-  },
-  '100': {
-    id: 100,
-    name: 'xDai',
-    explorer: {
-      name: 'Blockscout',
-      urls: {
-        address: (address) =>
-          `https://blockscout.com/poa/xdai/address/${address}/transactions`,
-      },
-    },
-  },
-  '56': {
-    id: 56,
-    name: 'Binance Smart Chain',
-    explorer: {
-      name: 'BscScan',
-      urls: {
-        address: (address) => `https://bscscan.com/address/${address}`,
-      },
-    },
-  },
-  '137': {
-    id: 137,
-    name: 'Polygon',
-    explorer: {
-      name: 'Polygonscan',
-      urls: {
-        address: (address) => `https://polygonscan.com/address/${address}`,
-      },
-    },
-  },
-  '4': {
-    id: 4,
-    name: 'Rinkeby',
-    explorer: {
-      name: 'Etherscan',
-      urls: {
-        address: (address) => `https://rinkeby.etherscan.io/address/${address}`,
-      },
-    },
-  },
-  '5': {
-    id: 5,
-    name: 'Goerli (Testnet)',
-    explorer: {
-      name: 'Goerli (Testnet)',
-      urls: {
-        address: (address) => `https://goerli.etherscan.io/address/${address}`,
-      },
-    },
-  },
-  '80001': {
-    id: 80001,
-    name: 'Mumbai (Polygon)',
-    explorer: {
-      name: 'PolygonScan (Mumbai)',
-      urls: {
-        address: (address) =>
-          `https://mumbai.polygonscan.com/address/${address}`,
-      },
-    },
-  },
-  '42220': {
-    id: 42220,
-    name: 'Celo',
-    explorer: {
-      name: 'Celoscan',
-      urls: {
-        address: (address) => `https://celoscan.io/address/${address}`,
-      },
-    },
-  },
 }

@@ -1,5 +1,7 @@
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore (this is a local package)
 import { Paywall } from '@unlock-protocol/paywall'
 import networks from '@unlock-protocol/networks'
 

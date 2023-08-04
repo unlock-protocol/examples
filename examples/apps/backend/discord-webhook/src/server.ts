@@ -1,8 +1,9 @@
 import { WebhookClient, MessageEmbed } from 'discord.js'
 import express from 'express'
 import { config } from './config'
-import { chunk, NETWORK_COLOR, networks, websubRequest, wait } from './util'
+import { chunk, NETWORK_COLOR, websubRequest, wait } from './util'
 import { createIntentHandler, createWebsubMiddleware } from './middleware'
+import { networks } from '@unlock-protocol/networks'
 
 const port = process.env.PORT || 4000
 
@@ -113,7 +114,7 @@ app.post('/callback/keys', websubMiddleware, async (req) => {
 })
 
 async function subscribeHooks() {
-  const subscribe = Object.values(networks).map(async (network) => {
+  const subscribe = Object.values(networks).map(async (network: any) => {
     try {
       const locksEndpoint = new URL(
         `/api/hooks/${network.id}/locks`,
@@ -151,7 +152,7 @@ async function subscribeHooks() {
 }
 
 async function unsubscribeHooks() {
-  const unsubscribe = Object.values(networks).map(async (network) => {
+  const unsubscribe = Object.values(networks).map(async (network: any) => {
     try {
       const locksEndpoint = new URL(
         `/api/hooks/${network.id}/locks`,
