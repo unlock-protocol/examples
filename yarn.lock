@@ -6894,6 +6894,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@unlock-protocol/networks@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@unlock-protocol/networks@npm:0.0.16"
+  checksum: 41ae8f2a1dc450c70fe3eb5131bb0cac5ecc17754e532d319b46f39040e2f2fde95dd8a9a83b56dc272dc224d28d2234a94b7bc6b03d6460f0ac4cd0e96c0fc1
+  languageName: node
+  linkType: hard
+
 "@unlock-protocol/networks@npm:^0.0.5":
   version: 0.0.5
   resolution: "@unlock-protocol/networks@npm:0.0.5"
@@ -6924,12 +6931,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@unlock-protocol/paywall@npm:0.6.6, @unlock-protocol/paywall@npm:^0.6.6":
+"@unlock-protocol/paywall@npm:0.6.6":
   version: 0.6.6
   resolution: "@unlock-protocol/paywall@npm:0.6.6"
   dependencies:
     postmate: 1.5.2
   checksum: 7613f47907da08bdccacef5edc38abb6b57969e3e1e97e3c4aab9c66b1205d42f3792dfdfb793bb14e1926aca21137915602afe2fced291fc46103ab075691f9
+  languageName: node
+  linkType: hard
+
+"@unlock-protocol/paywall@npm:^0.6.8":
+  version: 0.6.8
+  resolution: "@unlock-protocol/paywall@npm:0.6.8"
+  dependencies:
+    postmate: 1.5.2
+  checksum: a2cd4785bb0b59e60446262f022038da00f9d12a0a1ecef3b3bd1eb16868e18b94f8a71629e45ad20dff01e331a9bf5827262d44ac894515505a0d9789cfed12
   languageName: node
   linkType: hard
 
@@ -11470,6 +11486,7 @@ __metadata:
   dependencies:
     "@types/express": ^4.17.13
     "@types/node": ^17.0.10
+    "@unlock-protocol/networks": ^0.0.16
     cross-fetch: ^3.1.5
     discord.js: ^13.6.0
     dotenv: ^14.2.0
@@ -25557,8 +25574,8 @@ __metadata:
     "@types/react-dom": ^18.2.6
     "@typescript-eslint/eslint-plugin": ^5.61.0
     "@typescript-eslint/parser": ^5.61.0
-    "@unlock-protocol/networks": ^0.0.15
-    "@unlock-protocol/paywall": ^0.6.6
+    "@unlock-protocol/networks": ^0.0.16
+    "@unlock-protocol/paywall": ^0.6.8
     "@vitejs/plugin-react": ^4.0.1
     eslint: ^8.44.0
     eslint-plugin-react-hooks: ^4.6.0
