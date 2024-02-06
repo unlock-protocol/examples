@@ -10,7 +10,6 @@
  * Learn more at https://developers.cloudflare.com/workers/runtime-apis/scheduled-event/
  */
 import BigNumber from 'bignumber.js'
-import { networks } from '@unlock-protocol/networks'
 import { MINIMUM_BALANCES } from './minimum'
 export interface Env {
   // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
@@ -28,7 +27,8 @@ export interface Env {
 }
 
 interface Options {
-  network: Record<string, string>
+  networkName: string
+  networkId: string
   address: string
   balance: string
   minimum: string
@@ -36,7 +36,7 @@ interface Options {
 }
 
 async function sendNotification(endpoint: string, options: Options) {
-  const { network, address, balance, minimum, user } = options
+  const { networkName, networkId, address, balance, minimum, user } = options
   const body = {
     username: 'Unlock Alert',
     allowed_mentions: {
@@ -45,18 +45,18 @@ async function sendNotification(endpoint: string, options: Options) {
     content: `<@${user}>`,
     embeds: [
       {
-        title: `Low balance on ${network.name} network`,
+        title: `Low balance on ${networkName} network`,
         type: 'rich',
-        description: `The balance on ${network.name} network is ${balance} which is lower the minimum threshold set at ${minimum}. Please fund it ASAP.`,
+        description: `The balance on ${networkName} network is ${balance} which is lower the minimum threshold set at ${minimum}. Please fund it ASAP.`,
         fields: [
           {
             name: 'Network',
-            value: network.name,
+            value: networkName,
             inline: true,
           },
           {
             name: 'Network ID',
-            value: network.id,
+            value: networkId,
             inline: true,
           },
           {
@@ -89,59 +89,93 @@ async function sendNotification(endpoint: string, options: Options) {
   }
 }
 
+const notifyIfTooLow = async (
+  env: Env,
+  networkId: string,
+  networkName: string,
+  balance: string,
+  address: string
+) => {
+  const minimumBalance = new BigNumber(MINIMUM_BALANCES[networkId])
+  const networkBalance = new BigNumber(balance)
+  if (networkBalance.gte(minimumBalance)) {
+    return
+  }
+
+  await sendNotification(env.DISCORD_WEBHOOK_URL, {
+    networkName,
+    networkId,
+    address,
+    balance: networkBalance.toString(),
+    minimum: minimumBalance.toString(),
+    user: env.DISCORD_USER_ID,
+  })
+  await env.NOTIFICATIONS.put('last_sent', Date.now()?.toString())
+}
+
+const getBalances = async (env: Env, balanceEndpoint: URL) => {
+  const lastSent = await env.NOTIFICATIONS.get('last_sent')
+  // If sent a notification in the last 24 hours, do not send another one
+  if (lastSent) {
+    const lastSentDate = parseInt(lastSent)
+    const diff = Date.now() - lastSentDate
+    if (diff < 1000 * 60 * 60 * 24) {
+      return
+    }
+  }
+
+  const response = await fetch(balanceEndpoint.toString(), {
+    method: 'GET',
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+
+  const balances: Record<string, Record<string, string>> = await response.json()
+
+  for (const [networkId, config] of Object.entries(balances)) {
+    if (!Array.isArray(config)) {
+      if (!Object.keys(config).length) {
+        continue
+      }
+      await notifyIfTooLow(
+        env,
+        networkId,
+        config.name,
+        config.balance,
+        config.address
+      )
+    } else {
+      for (let i = 0; i < config.length; i++) {
+        await notifyIfTooLow(
+          env,
+          networkId,
+          config[i].name,
+          config[i].balance,
+          config[i].address
+        )
+      }
+    }
+  }
+}
+
 export default {
   async scheduled(
     controller: ScheduledController,
     env: Env,
     ctx: ExecutionContext
   ): Promise<void> {
-    const balanceEndpoint = new URL('/purchase', env.LOCKSMITH_URL)
-    const lastSent = await env.NOTIFICATIONS.get('last_sent')
-    // If sent a notification in the last 24 hours, do not send another one
-    if (lastSent) {
-      const lastSentDate = parseInt(lastSent)
-      const diff = Date.now() - lastSentDate
-      if (diff < 1000 * 60 * 60 * 24) {
-        return
-      }
-    }
-
-    const response = await fetch(balanceEndpoint.toString(), {
-      method: 'GET',
+    getBalances(env, new URL('/purchase', env.LOCKSMITH_URL))
+  },
+  async fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    const balances = await getBalances(
+      env,
+      new URL('/purchase', env.LOCKSMITH_URL)
+    )
+    return new Response(JSON.stringify(balances), {
       headers: {
         'content-type': 'application/json',
       },
     })
-
-    const balances: Record<
-      string,
-      Record<string, string>
-    > = await response.json()
-
-    for (const [networkId, config] of Object.entries(balances)) {
-      if (!Object.keys(config).length) {
-        continue
-      }
-
-      const { balance, address } = config
-      const network = networks[networkId]
-      const minimumBalance = new BigNumber(MINIMUM_BALANCES[networkId])
-      const networkBalance = new BigNumber(balance)
-      if (networkBalance.gte(minimumBalance)) {
-        continue
-      }
-
-      await sendNotification(env.DISCORD_WEBHOOK_URL, {
-        network,
-        address,
-        balance: networkBalance.toString(),
-        minimum: minimumBalance.toString(),
-        user: env.DISCORD_USER_ID,
-      })
-      await env.NOTIFICATIONS.put('last_sent', Date.now()?.toString())
-    }
-  },
-  async fetch() {
-    return new Response('Hello!')
   },
 }
