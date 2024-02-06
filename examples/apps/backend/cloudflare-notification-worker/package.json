@@ -12,7 +12,6 @@
     "deploy": "wrangler publish"
   },
   "dependencies": {
-    "@unlock-protocol/networks": "^0.0.5",
     "bignumber.js": "^9.1.0"
   }
 }
