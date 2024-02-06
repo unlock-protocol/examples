@@ -89,6 +89,29 @@ async function sendNotification(endpoint: string, options: Options) {
   }
 }
 
+const notifyIfTooLow = async (
+  env: Env,
+  networkId: string,
+  balance: string,
+  address: string
+) => {
+  const network = networks[networkId]
+  const minimumBalance = new BigNumber(MINIMUM_BALANCES[networkId])
+  const networkBalance = new BigNumber(balance)
+  if (networkBalance.gte(minimumBalance)) {
+    return
+  }
+
+  await sendNotification(env.DISCORD_WEBHOOK_URL, {
+    network,
+    address,
+    balance: networkBalance.toString(),
+    minimum: minimumBalance.toString(),
+    user: env.DISCORD_USER_ID,
+  })
+  await env.NOTIFICATIONS.put('last_sent', Date.now()?.toString())
+}
+
 export default {
   async scheduled(
     controller: ScheduledController,
@@ -119,26 +142,21 @@ export default {
     > = await response.json()
 
     for (const [networkId, config] of Object.entries(balances)) {
-      if (!Object.keys(config).length) {
-        continue
+      if (!Array.isArray(config)) {
+        if (!Object.keys(config).length) {
+          continue
+        }
+        await notifyIfTooLow(env, networkId, config.balance, config.address)
+      } else {
+        for (let i = 0; i < config.length; i++) {
+          await notifyIfTooLow(
+            env,
+            networkId,
+            config[i].balance,
+            config[i].address
+          )
+        }
       }
-
-      const { balance, address } = config
-      const network = networks[networkId]
-      const minimumBalance = new BigNumber(MINIMUM_BALANCES[networkId])
-      const networkBalance = new BigNumber(balance)
-      if (networkBalance.gte(minimumBalance)) {
-        continue
-      }
-
-      await sendNotification(env.DISCORD_WEBHOOK_URL, {
-        network,
-        address,
-        balance: networkBalance.toString(),
-        minimum: minimumBalance.toString(),
-        user: env.DISCORD_USER_ID,
-      })
-      await env.NOTIFICATIONS.put('last_sent', Date.now()?.toString())
     }
   },
   async fetch() {
