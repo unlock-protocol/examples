@@ -33,9 +33,16 @@ window.unlockProtocolConfig = {
 
 - Handling events:
 
-The Paywall library triggers events which can be used to know its state.
+The Paywall library triggers events that can be used to know its state.
 
 ```javascript
+const events = [
+  'unlockProtocol.transactionSent',
+  'unlockProtocol.status',
+  'unlockProtocol.authenticated',
+  'unlockProtocol.metadata',
+]
+
 window.addEventListener(eventName, function (event) {
   console.group(`Received ${eventName}`)
   console.log(event.detail)
