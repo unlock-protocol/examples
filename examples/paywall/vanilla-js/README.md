@@ -32,3 +32,13 @@ window.unlockProtocolConfig = {
 ```
 
 - Handling events:
+
+The Paywall library triggers events which can be used to know its state.
+
+```javascript
+window.addEventListener(eventName, function (event) {
+  console.group(`Received ${eventName}`)
+  console.log(event.detail)
+  console.groupEnd()
+})
+```
