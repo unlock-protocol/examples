@@ -6,7 +6,7 @@ declare global {
     unlockProtocol: any
   }
   interface Event {
-    details: any
+    detail: any
   }
 }
 
@@ -17,8 +17,17 @@ export function setupCheckout(element: HTMLButtonElement) {
   }
   element.addEventListener('click', () => checkout())
 
-  window.addEventListener('unlockProtocol.transactionSent', function (event) {
-    // This will include the metadata collected for that user
-    console.log(event.details)
+  const events = [
+    'unlockProtocol.transactionSent',
+    'unlockProtocol.status',
+    'unlockProtocol.authenticated',
+    'unlockProtocol.metadata',
+  ]
+  events.forEach((eventName) => {
+    window.addEventListener(eventName, function (event) {
+      console.group(`Received ${eventName}`)
+      console.log(event.detail)
+      console.groupEnd()
+    })
   })
 }

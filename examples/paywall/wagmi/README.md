@@ -8,8 +8,8 @@ We pass the `provider` from wagmi to the paywall object:
 const checkout = async () => {
   const paywallConfig = {
     locks: {
-      '0x6c208a3eb3150e7896124d282095f9e5fca18780': {
-        network: 5,
+      '0xb77030a7e47a5eb942a4748000125e70be598632': {
+        network: 137,
       },
     },
     skipRecipient: true,
